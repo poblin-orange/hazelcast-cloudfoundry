@@ -16,7 +16,7 @@
 
 package org.hazelcast.cloudfoundry.servicebroker.exception;
 
-import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
+import org.springframework.cloud.servicebroker.exception.ServiceBrokerException;
 
 /**
  * Hazelcast service exception

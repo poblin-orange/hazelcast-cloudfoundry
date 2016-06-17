@@ -22,7 +22,7 @@ import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.NetworkConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
+import org.springframework.cloud.servicebroker.model.ServiceInstance;
 import org.hazelcast.cloudfoundry.servicebroker.repository.HazelcastServiceRepository;
 import org.springframework.stereotype.Service;
 

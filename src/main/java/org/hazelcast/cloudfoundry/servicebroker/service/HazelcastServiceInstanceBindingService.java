@@ -17,12 +17,14 @@
 
 package org.hazelcast.cloudfoundry.servicebroker.service;
 
-import org.cloudfoundry.community.servicebroker.exception.ServiceBrokerException;
-import org.cloudfoundry.community.servicebroker.exception.ServiceInstanceBindingExistsException;
-import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceBindingRequest;
-import org.cloudfoundry.community.servicebroker.model.DeleteServiceInstanceBindingRequest;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstanceBinding;
-import org.cloudfoundry.community.servicebroker.service.ServiceInstanceBindingService;
+import org.springframework.cloud.servicebroker.exception.ServiceBrokerException;
+import org.springframework.cloud.servicebroker.exception.ServiceInstanceBindingExistsException;
+import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingRequest;
+import org.springframework.cloud.servicebroker.model.CreateServiceInstanceBindingResponse;
+import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceBindingRequest;
+import org.springframework.cloud.servicebroker.model.DeleteServiceInstanceResponse;
+import org.springframework.cloud.servicebroker.model.ServiceInstanceBinding;
+import org.springframework.cloud.servicebroker.service.ServiceInstanceBindingService;
 import org.hazelcast.cloudfoundry.servicebroker.repository.HazelcastServiceRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +44,13 @@ public class HazelcastServiceInstanceBindingService implements ServiceInstanceBi
     }
 
     @Override
-    public ServiceInstanceBinding createServiceInstanceBinding(CreateServiceInstanceBindingRequest
-                createServiceInstanceBindingRequest) throws ServiceInstanceBindingExistsException, ServiceBrokerException {
+    public CreateServiceInstanceBindingResponse createServiceInstanceBinding(CreateServiceInstanceBindingRequest
+                createServiceInstanceBindingRequest)  {
         String id = createServiceInstanceBindingRequest.getBindingId();
 
         ServiceInstanceBinding instanceBinding = repository.findServiceInstanceBinding(id);
         if (instanceBinding != null) {
-            throw new ServiceInstanceBindingExistsException(instanceBinding);
+            throw new IllegalArgumentException("already exist:"+instanceBinding.toString());
         }
 
         String serviceInstanceId = createServiceInstanceBindingRequest.getServiceInstanceId();
@@ -63,19 +65,18 @@ public class HazelcastServiceInstanceBindingService implements ServiceInstanceBi
 
         instanceBinding = new ServiceInstanceBinding(id, serviceInstanceId, credentials, null, appGuid);
         repository.saveServiceInstanceBinding(instanceBinding);
-        return instanceBinding;
+        return new CreateServiceInstanceBindingResponse();
+        
     }
 
     @Override
-    public ServiceInstanceBinding deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest
-           deleteServiceInstanceBindingRequest) throws ServiceBrokerException {
+    public void deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest
+           deleteServiceInstanceBindingRequest) {
         String id = deleteServiceInstanceBindingRequest.getBindingId();
 
         ServiceInstanceBinding instanceBinding = repository.findServiceInstanceBinding(id);
         if (instanceBinding != null) {
             repository.deleteServiceInstanceBinding(instanceBinding);
         }
-
-        return instanceBinding;
     }
 }

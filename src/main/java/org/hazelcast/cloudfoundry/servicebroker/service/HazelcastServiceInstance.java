@@ -17,8 +17,8 @@
 
 package org.hazelcast.cloudfoundry.servicebroker.service;
 
-import org.cloudfoundry.community.servicebroker.model.CreateServiceInstanceRequest;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
+import org.springframework.cloud.servicebroker.model.CreateServiceInstanceRequest;
+import org.springframework.cloud.servicebroker.model.ServiceInstance;
 
 import java.net.InetAddress;
 

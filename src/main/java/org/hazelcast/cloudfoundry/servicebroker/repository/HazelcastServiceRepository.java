@@ -16,8 +16,8 @@
 
 package org.hazelcast.cloudfoundry.servicebroker.repository;
 
-import org.cloudfoundry.community.servicebroker.model.ServiceInstance;
-import org.cloudfoundry.community.servicebroker.model.ServiceInstanceBinding;
+import org.springframework.cloud.servicebroker.model.ServiceInstance;
+import org.springframework.cloud.servicebroker.model.ServiceInstanceBinding;
 
 import java.util.Collection;
 import java.util.HashMap;

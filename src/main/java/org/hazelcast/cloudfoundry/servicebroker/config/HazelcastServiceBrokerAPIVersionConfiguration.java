@@ -17,7 +17,7 @@
 
 package org.hazelcast.cloudfoundry.servicebroker.config;
 
-import org.cloudfoundry.community.servicebroker.model.BrokerApiVersion;
+import org.springframework.cloud.servicebroker.model.BrokerApiVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
